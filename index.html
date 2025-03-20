@@ -66,12 +66,12 @@
     <script>
         function obtenerEstampasDelDia() {
             return [
-                { id: 1, nombre: "Taco Feliz", costo: 10, img: "./imagenes/taco_feliz.jpeg", rareza: "raro" },
-                { id: 2, nombre: "Pollito Amarillo", costo: 15, img: "./imagenes/pollito_amarillo.png", rareza: "epico" },
-                { id: 3, nombre: "Huevo Tierno", costo: 20, img: "./imagenes/huevo_tierno.png", rareza: "legendario" },
-                { id: 4, nombre: "Gato Fresa", costo: 25, img: "./imagenes/gato_fresa.png", rareza: "mitico" },
-                { id: 5, nombre: "Capibara Estrella", costo: 30, img: "./imagenes/capibara_estrella.jpg", rareza: "exclusivo" },
-                { id: 6, nombre: "Aguacate Kawaii", costo: 35, img: "./imagenes/aguacate_kawaii.jpg", rareza: "superexclusivo" }
+                { id: 1, nombre: "Taco Feliz", costo: 800, img: "./imagenes/taco_feliz.jpeg", rareza: "raro" },
+                { id: 2, nombre: "Pollito Amarillo", costo: 900, img: "./imagenes/pollito_amarillo.png", rareza: "epico" },
+                { id: 3, nombre: "Huevo Tierno", costo: 1000, img: "./imagenes/huevo_tierno.png", rareza: "legendario" },
+                { id: 4, nombre: "Gato Fresa", costo: 1100, img: "./imagenes/gato_fresa.png", rareza: "mitico" },
+                { id: 5, nombre: "Capibara Estrella", costo: 1200, img: "./imagenes/capibara_estrella.jpg", rareza: "exclusivo" },
+                { id: 6, nombre: "Aguacate Kawaii", costo: 1300, img: "./imagenes/aguacate_kawaii.jpg", rareza: "superexclusivo" }
             ];
         }
 
@@ -87,20 +87,20 @@
                     <strong>${sticker.nombre}</strong><br>
                     <span style="font-size: 18px; color: black;">${sticker.rareza.toUpperCase()}</span><br>
                     Costo: ${sticker.costo} puntos<br>
-                    <button onclick="canjear('${sticker.img}')">Canjear</button>
+                    <button onclick="canjear('${sticker.img}', ${sticker.costo})">Canjear</button>
                 `;
                 container.appendChild(div);
             });
         }
 
-        function canjear(imagen) {
-            let cantidadPuntos = prompt("Ingrese la cantidad de puntos para canjear esta estampa:");
+        function canjear(imagen, costo) {
+            let cantidadPuntos = prompt(`Ingrese la cantidad de puntos para canjear esta estampa (Costo: ${costo} puntos):`);
             if (cantidadPuntos !== null && !isNaN(cantidadPuntos) && cantidadPuntos.trim() !== "") {
                 cantidadPuntos = parseInt(cantidadPuntos);
-                if (cantidadPuntos > 0) {
+                if (cantidadPuntos >= costo) {
                     imprimir(imagen);
                 } else {
-                    alert("Debe ingresar un número válido mayor a 0.");
+                    alert(`Necesitas al menos ${costo} puntos para canjear esta estampa.`);
                 }
             } else {
                 alert("Entrada no válida. Intente nuevamente.");
