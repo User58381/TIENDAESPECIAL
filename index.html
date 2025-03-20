@@ -110,8 +110,9 @@
         function imprimir(imagen) {
             let ventana = window.open("", "_blank");
             ventana.document.write("<html><head><title>Impresión de Estampas</title><style>");
+            ventana.document.write("@page { size: landscape; margin: 0; }"); // Ajuste para modo horizontal
             ventana.document.write("body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }");
-            ventana.document.write("img { width: 100%; height: auto; }");
+            ventana.document.write("img { width: 100%; height: auto; max-height: 100vh; }");
             ventana.document.write("</style></head><body>");
             ventana.document.write(`<img src="${imagen}">`);
             ventana.document.write("</body></html>");
