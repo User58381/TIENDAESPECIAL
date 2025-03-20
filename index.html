@@ -109,10 +109,11 @@
 
         function imprimir(imagen) {
             let ventana = window.open("", "_blank");
-            ventana.document.write("<html><head><title>Impresión de Estampas</title></head><body>");
-            ventana.document.write("<div style='text-align: center; margin-top: 50px;'>");
-            ventana.document.write(`<img src="${imagen}" style="width:150px; height:150px;">`);
-            ventana.document.write("</div>");
+            ventana.document.write("<html><head><title>Impresión de Estampas</title><style>");
+            ventana.document.write("body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }");
+            ventana.document.write("img { width: 100%; height: auto; }");
+            ventana.document.write("</style></head><body>");
+            ventana.document.write(`<img src="${imagen}">`);
             ventana.document.write("</body></html>");
             ventana.document.close();
             setTimeout(() => { ventana.print(); ventana.close(); }, 500);
