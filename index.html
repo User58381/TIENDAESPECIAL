@@ -1,124 +1,34 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda Especial</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
-        body {
-            font-family: 'Comic Neue', cursive;
-            text-align: center;
-            background: url('imagenes/fondo.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-        }
-        .sticker {
-            display: inline-block;
-            margin: 20px;
-            padding: 10px;
-            border-radius: 10px;
-            text-align: center;
-            position: relative;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 15px;
-            animation: glowEffect 2s infinite alternate;
-        }
-        .sticker img {
-            width: 120px;
-            height: 120px;
-            border-radius: 10px;
-            animation: stickerGlow 1.5s infinite alternate;
-        }
-        .sticker button {
-            margin-top: 10px;
-            padding: 5px 10px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .raro { border: 4px solid blue; background-color: #d0e1ff; }
-        .epico { border: 4px solid purple; background-color: #e1c0ff; }
-        .legendario { border: 4px solid orange; background-color: #ffdbac; }
-        .mitico { border: 4px solid red; background-color: #ffc0c0; }
-        .exclusivo { border: 4px solid gold; background-color: #fff7c0; }
-        .superexclusivo { border: 4px solid black; background-color: #ffcc00; animation: superGlow 1.5s infinite alternate; }
-
-        @keyframes glowEffect {
-            0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
-            100% { box-shadow: 0 0 30px rgba(255, 255, 255, 0.8); }
-        }
-
-        @keyframes stickerGlow {
-            0% { filter: brightness(1); }
-            100% { filter: brightness(1.5); }
-        }
-        
-        @keyframes superGlow {
-            0% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
-            100% { box-shadow: 0 0 30px rgba(255, 215, 0, 1); }
-        }
-    </style>
-</head>
-<body>
-    <h1>Tienda Especial</h1>
-    <h2>Estampas Disponibles</h2>
-    <div id="stickerContainer"></div>
-
-    <script>
-        function obtenerEstampasEspeciales() {
-            return [
-                { id: 1, nombre: "Aguacate kawaii", img: "imagenes/aguacate_kawaii.png", rareza: "raro", costo: 800 },
-                { id: 2, nombre: "Capibara con estrella", img: "imagenes/capibara_estrella.jpg", rareza: "epico", costo: 900 },
-                { id: 3, nombre: "Taco feliz", img: "imagenes/taco_feliz.jpeg", rareza: "legendario", costo: 1000 },
-                { id: 4, nombre: "Huevo tierno", img: "imagenes/huevo_tierno.png", rareza: "mitico", costo: 1100 },
-                { id: 5, nombre: "Gato fresa", img: "imagenes/gato_fresa.png", rareza: "exclusivo", costo: 1200 },
-                { id: 6, nombre: "Pollito amarillo", img: "imagenes/pollito_amarillo.png", rareza: "superexclusivo", costo: 1300 }
-            ];
-        }
-
-        function renderStickers() {
-            const container = document.getElementById("stickerContainer");
-            container.innerHTML = "";
-            let stickers = obtenerEstampasEspeciales();
-            stickers.forEach(sticker => {
-                let div = document.createElement("div");
-                div.className = `sticker ${sticker.rareza}`;
-                div.innerHTML = `
-                    <img src="${sticker.img}" alt="${sticker.nombre}"><br>
-                    <strong>${sticker.nombre}</strong><br>
-                    <span style="font-size: 18px; color: black;">${sticker.rareza.toUpperCase()}</span><br>
-                    Costo: ${sticker.costo} puntos<br>
-                    <button onclick="canjear(${sticker.costo}, '${sticker.img}')">Canjear</button>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function canjear(costo, imagen) {
-            let cantidadPuntos = prompt(`Ingrese la cantidad de puntos. Se requieren ${costo} puntos para canjear esta estampa:`);
-
-            if (cantidadPuntos !== null && !isNaN(cantidadPuntos) && cantidadPuntos.trim() !== "") {
-                cantidadPuntos = parseInt(cantidadPuntos);
-                if (cantidadPuntos >= costo) {
-                    imprimir(imagen);
-                } else {
-                    alert(`No tienes suficientes puntos. Necesitas ${costo} puntos.`);
+function imprimir(imagen) {
+    let ventana = window.open("", "_blank");
+    ventana.document.write(`
+        <html>
+        <head>
+            <title>Impresión de Estampa</title>
+            <style>
+                @page {
+                    size: A4 portrait;
+                    margin: 0;
                 }
-            } else {
-                alert("Entrada no válida. Intente nuevamente.");
-            }
-        }
-
-        function imprimir(imagen) {
-            let ventana = window.open("", "_blank");
-            ventana.document.write("<html><head><title>Impresión de Estampa</title></head><body>");
-            ventana.document.write(`<div style='text-align: center;'><img src="${imagen}" style="width:100%; height:auto;'></div>`);
-            ventana.document.write("</body></html>");
-            ventana.document.close();
-            setTimeout(() => { ventana.print(); ventana.close(); }, 500);
-        }
-
-        renderStickers();
-    </script>
-</body>
-</html>
+                body {
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100vh;
+                    background: white;
+                }
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                }
+            </style>
+        </head>
+        <body>
+            <img id="sticker" src="${imagen}" onload="window.print();">
+        </body>
+        </html>
+    `);
+    ventana.document.close();
+}
